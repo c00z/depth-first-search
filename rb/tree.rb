@@ -37,11 +37,20 @@ class Tree
   # the +target_key+ param. Looks through nodes in a depth-first order,
   # by following each path as deep as it can before backtracking.
   # Returns nil if no such node is found.
-  def depth_first_search(target_key)
+  def depth_first_search(target)
+    stack = [self]
+    while !stack.empty?
+      p stack.map {|node| "#{node.key}"}
+      current_node = stack.pop
+      if current_node.key == target
+        return current_node
+      end
+      stack.concat current_node.children
+    end
     nil
   end
 
-end
+
 
 
 my_tree = Tree.new('Q')
